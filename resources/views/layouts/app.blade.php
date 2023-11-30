@@ -71,8 +71,8 @@
                         <li><a class="dropdown-item" href="#">Odhlásenie</a></li>
                     </ul>
                 </div>
-                @else <a class="p-2 ">Login</pa>
-                    @endif
+                @else <a class="p-2 " href="{{ url('/login') }}">Login</a>
+                @endif
             </div>
         </div>
     </header>

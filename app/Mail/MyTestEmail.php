@@ -16,9 +16,36 @@ class MyTestEmail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
-    {
-        //
+    public function __construct(
+        private $nazovEmailu,
+        private $odkazLogo,
+        private $linkLogo,
+        private $prvyOdsek,
+        private $druhyOdsek,
+        private $tretiOdsek,
+        private $stvrtyOdsek,
+        private $leftFooter1,
+        private $leftFooter2,
+        private $leftFooter3,
+        private $leftFooter4,
+        private $rightFooter1,
+        private $rightFooterOdkaz,
+        private $rightFooterOdkazText
+    ) {
+        $this->nazovEmailu = $nazovEmailu;
+        $this->odkazLogo = $odkazLogo;
+        $this->linkLogo = $linkLogo;
+        $this->prvyOdsek = $prvyOdsek;
+        $this->druhyOdsek = $druhyOdsek;
+        $this->tretiOdsek = $tretiOdsek;
+        $this->stvrtyOdsek = $stvrtyOdsek;
+        $this->leftFooter1 = $leftFooter1;
+        $this->leftFooter2 = $leftFooter2;
+        $this->leftFooter3 = $leftFooter3;
+        $this->leftFooter4 = $leftFooter4;
+        $this->rightFooter1 = $rightFooter1;
+        $this->rightFooterOdkaz = $rightFooterOdkaz;
+        $this->rightFooterOdkazText = $rightFooterOdkazText;
     }
 
     /**
@@ -27,19 +54,38 @@ class MyTestEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'My Test Email',
+            subject: $this->nazovEmailu,
         );
     }
 
     /**
      * Get the message content definition.
      */
-    public function content(): Content
+    public function content()
     {
+        $data = [
+            'odkazLogo' => $this->odkazLogo,
+            'linkLogo' => $this->linkLogo,
+            'prvyOdsek' => $this->prvyOdsek,
+            'druhyOdsek' => $this->druhyOdsek,
+            'tretiOdsek' => $this->tretiOdsek,
+            'stvrtyOdsek' => $this->stvrtyOdsek,
+            'leftFooter1' => $this->leftFooter1,
+            'leftFooter2' => $this->leftFooter2,
+            'leftFooter3' => $this->leftFooter3,
+            'leftFooter4' => $this->leftFooter4,
+            'rightFooter1' => $this->rightFooter1,
+            'rightFooterOdkaz' => $this->rightFooterOdkaz,
+            'rightFooterOdkazText' => $this->rightFooterOdkazText,
+            // add other data as needed
+        ];
+
         return new Content(
-            view: 'view.name',
+            view: 'mail.dynamicEmail',
+            with: $data,
         );
     }
+
 
     /**
      * Get the attachments for the message.
