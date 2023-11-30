@@ -34,29 +34,35 @@
     <header class="py-3 mb-4 border-bottom header">
         <div class="container-fluid">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                <a href="/index.html" class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none">
-                    <img src="images/meteoLogo.png" alt="meteoLogo" width="40" height="40" class="me-2">
+                <a href="{{ url('/') }}" class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none">
+                    <img src="{{ asset('images/meteoLogo.png') }}" alt="meteoLogo" width="40" height="40" class="me-2">
                 </a>
 
                 <nav class="my-2 my-md-0 me-md-3">
-                    <a class="p-2 link-body-emphasis" href="/index.html">Domov</a>
-                    <a class="p-2 link-secondary" href="/zariadenia.html">Zariadenia</a>
-                    <a class="p-2 link-body-emphasis" href="/grafPred.html">Grafická predpoveď</a>
-                    <a class="p-2 link-body-emphasis" href="/txtPred.html">Textová predpoveď</a>
-                    <a class="p-2 link-body-emphasis" href="/contact.html">Kontakt</a>
+                    <a class="p-2 {{ Request::is('/') ? 'link-secondary' : 'link-body-emphasis' }}"
+                        href="{{ url('/') }}">Domov</a>
+                    <a class="p-2 {{ Request::is('devices') ? 'link-secondary' : 'link-body-emphasis' }}"
+                        href="{{ url('/devices') }}">Zariadenia</a>
+                    <a class="p-2 {{ Request::is('grafPred') ? 'link-secondary' : 'link-body-emphasis' }}"
+                        href="{{ url('/grafPred') }}">Grafická predpoveď</a>
+                    <a class="p-2 {{ Request::is('txtPred') ? 'link-secondary' : 'link-body-emphasis' }}"
+                        href="{{ url('/txtPred') }}">Textová predpoveď</a>
+                    <a class="p-2 {{ Request::is('contact') ? 'link-secondary' : 'link-body-emphasis' }}"
+                        href="{{ url('/contact') }}">Kontakt</a>
                 </nav>
+
 
                 <form class="d-flex me-md-3" role="search">
                     <input type="search" class="form-control" placeholder="Vyhľadať..." aria-label="Search">
                 </form>
-
+                @if(Auth::check())
                 <div class="dropdown">
                     <a href="#" class="d-block text-dark text-decoration-none dropdown-toggle" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown">
                         <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="/vlozenieData.html">Vlož dáta</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/vlozenieData') }}">Vlož dáta</a></li>
                         <li><a class="dropdown-item" href="#">Nastavenia</a></li>
                         <li><a class="dropdown-item" href="#">Profil</a></li>
                         <li>
@@ -65,9 +71,12 @@
                         <li><a class="dropdown-item" href="#">Odhlásenie</a></li>
                     </ul>
                 </div>
+                @else <a class="p-2 ">Login</pa>
+                    @endif
             </div>
         </div>
     </header>
+
 
 <body>
 
